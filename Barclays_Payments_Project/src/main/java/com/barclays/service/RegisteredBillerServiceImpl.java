@@ -43,7 +43,7 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 			rb.setBillerCode(biller.getBillerCode());
 			rb.setBillerSequenceId(biller.getBillerSequenceId());
 			rb.setConsumerNumber(biller.getConsumerNumber());
-			rb.setSequenceId(biller.getSequenceId());
+			rb.setAccountNumber(biller.getAccountNumber());
 			RegisteredBillerss.add(rb);
 		});
 		if (RegisteredBillerss.isEmpty())
@@ -52,9 +52,9 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 		return new ResponseEntity<>(RegisteredBillerss, HttpStatus.OK);
 	}
 	@Override
-	public ResponseEntity<List<RegisteredBillers>> getBillers(Integer sequenceId) throws PaymentsException {
+	public ResponseEntity<List<RegisteredBillers>> getBillers(Integer AccountNumber) throws PaymentsException {
 	
-		Iterable<RegisteredBillers> billers = registeredBillersRepository.findBySequenceId(sequenceId);
+		Iterable<RegisteredBillers> billers = registeredBillersRepository.findByAccountNumber(AccountNumber);
 		List<RegisteredBillers> RegisteredBillerss = new ArrayList<>();
 		
 		billers.forEach(biller -> {
@@ -63,7 +63,7 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 			rb.setBillerCode(biller.getBillerCode());
 			rb.setBillerSequenceId(biller.getBillerSequenceId());
 			rb.setConsumerNumber(biller.getConsumerNumber());
-			rb.setSequenceId(biller.getSequenceId());
+			rb.setAccountNumber(biller.getAccountNumber());
 			RegisteredBillerss.add(rb);
 		});
 		if (RegisteredBillerss.isEmpty())
@@ -73,13 +73,13 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 	}
 	
 	@Override
-	public ResponseEntity<String> registerBiller(Integer SequenceId,RegisteredBillers registerBillerEnt) throws PaymentsException {
+	public ResponseEntity<String> registerBiller(Integer AccountNumber,RegisteredBillers registerBillerEnt) throws PaymentsException {
 		
 		RegisteredBillers registerBiller = new RegisteredBillers();
 		
 		registerBiller.setBillerCode(registerBillerEnt.getBillerCode());
 		registerBiller.setConsumerNumber(registerBillerEnt.getConsumerNumber());
-		registerBiller.setSequenceId(SequenceId);
+		registerBiller.setAccountNumber(AccountNumber);
 		
 		
 		RegisteredBillers biller2 = registeredBillersRepository.save(registerBiller);//PERSISTING IN DATABASE

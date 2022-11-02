@@ -147,13 +147,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<String> registerBiller(Integer SequenceId,RegisteredBillersDTO registerBillerDTO) throws PaymentsException {
+	public ResponseEntity<String> registerBiller(Integer AccountNumber,RegisteredBillersDTO registerBillerDTO) throws PaymentsException {
 		
 		RegisteredBillers registerBiller = new RegisteredBillers();
 		
 		registerBiller.setBillerCode(registerBillerDTO.getBillerCode());
 		registerBiller.setConsumerNumber(registerBillerDTO.getConsumerNumber());
-		registerBiller.setSequenceId(SequenceId);
+		registerBiller.setAccountNumber(AccountNumber);
 		
 		
 		RegisteredBillers biller2 = registeredBillersRepository.save(registerBiller);//PERSISTING IN DATABASE
@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
 			rb.setBillerCode(biller.getBillerCode());
 			rb.setBillerSequenceId(biller.getBillerSequenceId());
 			rb.setConsumerNumber(biller.getConsumerNumber());
-			rb.setSequenceId(biller.getSequenceId());
+			rb.setSequenceId(biller.getAccountNumber());
 			registeredBillersDTOs.add(rb);
 		});
 		if (registeredBillersDTOs.isEmpty())
@@ -184,9 +184,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<List<RegisteredBillersDTO>> getBillers(Integer sequenceId) throws PaymentsException {
+	public ResponseEntity<List<RegisteredBillersDTO>> getBillers(Integer accountNumber) throws PaymentsException {
 	
-		Iterable<RegisteredBillers> billers = registeredBillersRepository.findBySequenceId(sequenceId);
+		Iterable<RegisteredBillers> billers = registeredBillersRepository.findByAccountNumber(accountNumber);
 		List<RegisteredBillersDTO> registeredBillersDTOs = new ArrayList<>();
 		
 		billers.forEach(biller -> {
@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserService {
 			rb.setBillerCode(biller.getBillerCode());
 			rb.setBillerSequenceId(biller.getBillerSequenceId());
 			rb.setConsumerNumber(biller.getConsumerNumber());
-			rb.setSequenceId(biller.getSequenceId());
+			rb.setSequenceId(biller.getAccountNumber());
 			registeredBillersDTOs.add(rb);
 		});
 		if (registeredBillersDTOs.isEmpty())

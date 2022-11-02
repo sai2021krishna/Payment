@@ -22,6 +22,7 @@ import com.barclays.dto.BillsDTO;
 import com.barclays.dto.RegisteredBillersDTO;
 import com.barclays.entity.RegisteredBillers;
 import com.barclays.exception.PaymentsException;
+import com.barclays.service.ExportToCsvService;
 import com.barclays.service.RegisteredBillerService;
 import com.barclays.service.UserService;
 
@@ -35,6 +36,9 @@ public class PaymentApi {
 	
 	@Autowired
 	private RegisteredBillerService registeredBillerService;
+	
+	@Autowired
+	private ExportToCsvService exportToCsvService;
 
 	@Autowired
 	private Environment environment;
@@ -110,7 +114,7 @@ public class PaymentApi {
         response.setContentType("text/csv");
         
          
-        userService.listall(response);
+        exportToCsvService.listall(response);
         
          
     }

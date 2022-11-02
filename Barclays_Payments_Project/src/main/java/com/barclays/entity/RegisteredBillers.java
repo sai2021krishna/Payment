@@ -14,7 +14,7 @@ public class RegisteredBillers {
 	private Integer billerSequenceId;
 	private Integer billerCode;
 	private String consumerNumber;
-	private Integer sequenceId;
+	private Integer accountNumber;
 	
 	
 	
@@ -37,17 +37,17 @@ public class RegisteredBillers {
 	public void setConsumerNumber(String consumerNumber) {
 		this.consumerNumber = consumerNumber;
 	}
-	public Integer getSequenceId() {
-		return sequenceId;
+	public Integer getAccountNumber() {
+		return accountNumber;
 	}
-	public void setSequenceId(Integer sequenceId) {
-		this.sequenceId = sequenceId;
+	public void setAccountNumber(Integer accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 	
 	@Override
 	public String toString() {
 		return "RegisteredBillers [billerSequenceId=" + billerSequenceId + ", billerCode=" + billerCode
-				+ ", consumerNumber=" + consumerNumber + ", sequenceId=" + sequenceId + ", autopay=" 
+				+ ", consumerNumber=" + consumerNumber + ", accountNumber=" + accountNumber + ", autopay=" 
 				+ ", autopayLimit=" +  "]";
 	}
 	
