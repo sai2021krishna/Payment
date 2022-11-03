@@ -12,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.barclays.entity.User;
 import com.barclays.exception.PaymentsException;
-import com.barclays.repository.UserRespository;
+import com.barclays.repository.UserRepository;
 
 @Service(value = "userService")
 public class UserService {
 
 	@Autowired
-	UserRespository userRespository;
+	UserRepository userRepository;
 
 	@Autowired
 	private Environment environment;
@@ -35,15 +35,15 @@ public class UserService {
 			user1.setRoleId(2);
 		}
 
-		return userRespository.save(user1);
+		return userRepository.save(user1);
 	}
 
 	public List<User> getAllUsers() {
-		return userRespository.findAll();
+		return userRepository.findAll();
 	}
 
 	public ResponseEntity<String> loginUser(User User) throws PaymentsException {
-		Optional<User> optional = userRespository.findById(User.getLoginId());
+		Optional<User> optional = userRepository.findById(User.getLoginId());
 		User user = optional.orElseThrow(() -> new PaymentsException("Service.USERS_NOT_FOUND"));
 		if (user.getPassword().equals(User.getPassword())) {
 			String successMessage = environment.getProperty("API.LOGGED_IN") + user.getLoginId() + " AS "
@@ -56,7 +56,7 @@ public class UserService {
 	}
 
 	public User getUser(Integer userId) throws PaymentsException {
-		Optional<User> optional = userRespository.findById(userId);
+		Optional<User> optional = userRepository.findById(userId);
 		User user = optional.orElseThrow(() -> new PaymentsException("Service.CUSTOMER_NOT_FOUND"));
 		User user2 = new User();
 		user2.setLoginId(user.getLoginId());
@@ -69,16 +69,16 @@ public class UserService {
 	}
 
 	public void updateUser(Integer userId, String password) throws PaymentsException {
-		Optional<User> user = userRespository.findById(userId);
+		Optional<User> user = userRepository.findById(userId);
 		User c = user.orElseThrow(() -> new PaymentsException("Service.CUSTOMER_NOT_FOUND"));
 		c.setPassword(password);
 
 	}
 
 	public void deleteUser(Integer loginId) throws PaymentsException {
-		Optional<User> user = userRespository.findById(loginId);
+		Optional<User> user = userRepository.findById(loginId);
 		user.orElseThrow(() -> new PaymentsException("Service.CUSTOMER_NOT_FOUND"));
-		userRespository.deleteById(loginId);
+		userRepository.deleteById(loginId);
 	}
 
 }

@@ -12,14 +12,14 @@ import org.springframework.http.ResponseEntity;
 
 import com.barclays.entity.User;
 import com.barclays.exception.PaymentsException;
-import com.barclays.repository.UserRespository;
+import com.barclays.repository.UserRepository;
 import com.barclays.service.UserService;
 
 @SpringBootTest
 class BarclaysPaymentsProjectTests {
 	
 	@Mock
-	UserRespository userRepository;
+	UserRepository userRepository;
 	
 	@InjectMocks
 	UserService userService = new UserService();
