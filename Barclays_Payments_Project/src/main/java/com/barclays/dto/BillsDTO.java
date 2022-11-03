@@ -58,7 +58,7 @@ public class BillsDTO {
 	
 	@Override
 	public String toString() {
-		return "Bills [billSequenceId=" + billSequenceId + ", billerCode=" + billerCode
+		return "Bill [billSequenceId=" + billSequenceId + ", billerCode=" + billerCode
 				+ ", consumerNumber=" + consumerNumber + ", amount=" + amount + ", dueDate=" + dueDate
 				+", status="+status+"]";
 	}

@@ -29,7 +29,7 @@ import com.barclays.service.UserService;
 @RestController
 @RequestMapping(value = "/pay")
 @Validated
-public class PaymentApi {
+public class RegisteredBillerController {
 	
 	@Autowired
 	private UserService userService;
@@ -72,40 +72,7 @@ public class PaymentApi {
 		return registeredBillerService.deleteBiller(billerSequenceId);
 		
 	}
-	//-------------------------------------------------------------------------
-	
-	//shows bills for the biller
-	@GetMapping(value ="/getBills/{billerCode}")
-	public ResponseEntity<List<String>> getbills(@PathVariable Integer billerCode) throws PaymentsException {
-		return userService.getBills(billerCode);
-		
-	}
-	//get all bills of billers
-	@GetMapping(value ="/getallBills")
-	public ResponseEntity<List<String>> getallbills() throws PaymentsException {
-		return userService.getAllBills();
-		
-	}
 
-
-	@PostMapping(value = "/generateBill")
-	public ResponseEntity<String> generatebill(@RequestBody BillsDTO 
-			billsDTO)
-			throws PaymentsException {
-		
-		return userService.generateBill(billsDTO );
-		
-	}	
-	@PostMapping(value = "/payment/{sequenceId}")
-	public ResponseEntity<String> manualPay(@PathVariable Integer sequenceId,@RequestBody AccountTransactionDTO 
-			accountTransactionDTO)
-			throws PaymentsException {
-		
-		return userService.manualPay(sequenceId,accountTransactionDTO );
-		
-	}	
-
-	
 	//..........................
 	
 	

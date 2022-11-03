@@ -28,12 +28,12 @@ public class Accounts_Transaction {
 	private String description;
 //	@OneToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "billSequenceId", unique = true)
-//	private Bills bill;
+//	private Bill bill;
 	
-//	public Bills getBill() {
+//	public Bill getBill() {
 //		return bill;
 //	}
-//	public void setBill(Bills bill) {
+//	public void setBill(Bill bill) {
 //		this.bill = bill;
 //	}
 	public Integer getBill_ref_num() {

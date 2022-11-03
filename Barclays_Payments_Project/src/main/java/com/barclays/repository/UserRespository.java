@@ -1,10 +1,10 @@
 package com.barclays.repository;
 
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.barclays.entity.User;
 
-public interface UserRespository extends CrudRepository<User, Integer> {
+public interface UserRespository extends JpaRepository<User, Integer> {
 
 }

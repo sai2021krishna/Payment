@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 //import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -13,13 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
 import com.barclays.entity.RegisteredBillers;
 import com.barclays.exception.PaymentsException;
-import com.barclays.repository.AccountTransactionRepository;
-import com.barclays.repository.AccountsRepository;
-import com.barclays.repository.BillsRepository;
 import com.barclays.repository.RegisteredBillersRepository;
+import com.barclays.utility.LoggingAspect;
 
 @Service(value="paymentService")
 @Transactional
@@ -30,6 +29,8 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 
 	@Autowired
 	private RegisteredBillersRepository registeredBillersRepository;
+	
+	public static final Log LOGGER = LogFactory.getLog(RegisteredBillerServiceImpl.class); //(RegisteredBillerServiceImpl.class);
 	
 	
 	@Override
@@ -45,7 +46,9 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 			rb.setConsumerNumber(biller.getConsumerNumber());
 			rb.setAccountNumber(biller.getAccountNumber());
 			RegisteredBillerss.add(rb);
+			
 		});
+		LOGGER.info("All billers Extracted");
 		if (RegisteredBillerss.isEmpty())
 			throw new PaymentsException("Service.BILLER_NOT_FOUND");
 		

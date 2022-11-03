@@ -1,45 +1,84 @@
 package com.barclays.service;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
-import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.barclays.dto.AccountTransactionDTO;
-import com.barclays.dto.BillsDTO;
-import com.barclays.dto.RegisteredBillersDTO;
-import com.barclays.dto.UserDTO;
-import com.barclays.entity.Accounts_Transaction;
+import com.barclays.entity.User;
 import com.barclays.exception.PaymentsException;
+import com.barclays.repository.UserRespository;
 
+@Service(value = "userService")
+public class UserService {
 
+	@Autowired
+	UserRespository userRespository;
 
-public interface UserService {
-	public Integer addUser(UserDTO UserDTO) throws PaymentsException;
-	public ResponseEntity<String> loginUser(UserDTO UserDTO) throws PaymentsException;
-	public UserDTO getUser(Integer UserId) throws PaymentsException;
-	//public void updateUser(Integer UserId, String emailId)throws PaymentsException;
-	public void deleteUser(Integer UserId)throws PaymentsException;
-	public List<UserDTO> getAllUsers() throws PaymentsException;
-	
-	
-	public ResponseEntity<String> registerBiller(Integer SequenceId,RegisteredBillersDTO registerBillerDTO) throws PaymentsException;
-	public ResponseEntity<List<RegisteredBillersDTO>> getAllBillers() throws PaymentsException;
+	@Autowired
+	private Environment environment;
 
-	public ResponseEntity<List<RegisteredBillersDTO>> getBillers(Integer sequenceId) throws PaymentsException;
-	public ResponseEntity<String>  deleteBiller(Integer billerSequenceId)throws PaymentsException;
-	
-	public ResponseEntity<String> generateBill(BillsDTO billsDTO) throws PaymentsException;
-	
-	public ResponseEntity<String> manualPay(Integer sequenceId,AccountTransactionDTO accountTransactionDTO)throws PaymentsException;
-	
-	
-	public ResponseEntity<List<String>> getBills(Integer billerCode) throws PaymentsException;
-	
-	public ResponseEntity<List<String>> getAllBills() throws PaymentsException;
-	
-	public void listall(HttpServletResponse response) throws IOException,PaymentsException;
-	
+	public User addUser(User user) {
+		User user1 = new User();
+		user1.setLoginId(user.getLoginId());
+		user1.setPassword(user.getPassword());
+		user1.setRoleName(user.getRoleName());
+		user1.setLinkedAccountSequenceId(user.getLinkedAccountSequenceId());
+		if (user.getRoleName().equals("Bank_Manager")) {
+			user1.setRoleId(1);
+		} else {
+			user1.setRoleId(2);
+		}
+
+		return userRespository.save(user1);
+	}
+
+	public List<User> getAllUsers() {
+		return userRespository.findAll();
+	}
+
+	public ResponseEntity<String> loginUser(User User) throws PaymentsException {
+		Optional<User> optional = userRespository.findById(User.getLoginId());
+		User user = optional.orElseThrow(() -> new PaymentsException("Service.USERS_NOT_FOUND"));
+		if (user.getPassword().equals(User.getPassword())) {
+			String successMessage = environment.getProperty("API.LOGGED_IN") + user.getLoginId() + " AS "
+					+ user.getRoleId();
+			return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
+
+		} else {
+			throw new PaymentsException("Service.INCORRECT");
+		}
+	}
+
+	public User getUser(Integer userId) throws PaymentsException {
+		Optional<User> optional = userRespository.findById(userId);
+		User user = optional.orElseThrow(() -> new PaymentsException("Service.CUSTOMER_NOT_FOUND"));
+		User user2 = new User();
+		user2.setLoginId(user.getLoginId());
+		user2.setPassword(user.getPassword());
+		user2.setRoleId(user.getRoleId());
+		user2.setLinkedAccountSequenceId(user.getLinkedAccountSequenceId());
+		user2.setRoleName(user.getRoleName());
+
+		return user2;
+	}
+
+	public void updateUser(Integer userId, String password) throws PaymentsException {
+		Optional<User> user = userRespository.findById(userId);
+		User c = user.orElseThrow(() -> new PaymentsException("Service.CUSTOMER_NOT_FOUND"));
+		c.setPassword(password);
+
+	}
+
+	public void deleteUser(Integer loginId) throws PaymentsException {
+		Optional<User> user = userRespository.findById(loginId);
+		user.orElseThrow(() -> new PaymentsException("Service.CUSTOMER_NOT_FOUND"));
+		userRespository.deleteById(loginId);
+	}
+
 }
