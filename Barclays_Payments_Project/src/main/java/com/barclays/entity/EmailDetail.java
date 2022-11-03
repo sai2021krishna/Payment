@@ -1,16 +1,16 @@
 package com.barclays.entity;
 
-public class EmailDetails {
+public class EmailDetail {
 	  private String recipient;
 	    private String msgBody;
 	    private String subject;
 	    private String attachment;
 	    
 	    
-		public EmailDetails() {
+		public EmailDetail() {
 			
 		}
-		public EmailDetails(String recipient, String msgBody, String subject, String attachment) {
+		public EmailDetail(String recipient, String msgBody, String subject, String attachment) {
 			super();
 			this.recipient = recipient;
 			this.msgBody = msgBody;
@@ -43,7 +43,7 @@ public class EmailDetails {
 		}
 		@Override
 		public String toString() {
-			return "EmailDetails [recipient=" + recipient + ", msgBody=" + msgBody + ", subject=" + subject
+			return "EmailDetail [recipient=" + recipient + ", msgBody=" + msgBody + ", subject=" + subject
 					+ ", attachment=" + attachment + "]";
 		}
 	    

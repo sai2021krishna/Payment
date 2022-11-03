@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Accounts {
+public class Account {
 	
 
 	@Id
@@ -49,7 +49,7 @@ public class Accounts {
 	}
 	@Override
 	public String toString() {
-		return "Accounts [sequenceId=" + sequenceId + ", accountNo=" + accountNo + ", name=" + name + ", email=" + email
+		return "Account [sequenceId=" + sequenceId + ", accountNo=" + accountNo + ", name=" + name + ", email=" + email
 				+ ", currentBalance=" + currentBalance + "]";
 	}
 	

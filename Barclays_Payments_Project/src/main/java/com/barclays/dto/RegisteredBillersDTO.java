@@ -49,7 +49,7 @@ public class RegisteredBillersDTO {
 	
 	@Override
 	public String toString() {
-		return "RegisteredBillers [billerSequenceId=" + billerSequenceId + ", billerCode=" + billerCode
+		return "RegisteredBiller [billerSequenceId=" + billerSequenceId + ", billerCode=" + billerCode
 				+ ", consumerNumber=" + consumerNumber + ", sequenceId=" + sequenceId + ", autopay="
 				+ ", autopayLimit="  + "]";
 	}

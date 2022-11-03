@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-public class Accounts_Transaction {
+public class AccountTransaction {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,7 +82,7 @@ public class Accounts_Transaction {
 
 	@Override
 	public String toString() {
-		return "Accounts_Transaction [trans_ref_num=" + trans_ref_num + ", sequence_id=" + sequence_id + ", date="
+		return "AccountTransaction [trans_ref_num=" + trans_ref_num + ", sequence_id=" + sequence_id + ", date="
 				+ date + ", amount=" + amount + ", transaction_type=" + transaction_type + ", bill_ref_num="
 				+ bill_ref_num + ", description=" + description + "]";
 	}
@@ -109,7 +109,7 @@ public class Accounts_Transaction {
 
 
 
-/*Sequence Id --> FK from Accounts
+/*Sequence Id --> FK from Account
 Transaction Reference-->Unique
 Date 
 Ammount

@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.barclays.entity.EmailDetails;
+import com.barclays.entity.EmailDetail;
 //import com.sun.java.util.jar.pack.Package.File;
 
 @Service
@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
 	 ("${spring.mail.username}") private String sender;
 
 	@Override
-	public String sendSimpleMail(EmailDetails details) {
+	public String sendSimpleMail(EmailDetail details) {
 		try {
 			 
             
@@ -51,7 +51,7 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public String sendMailWithAttachment(EmailDetails details) {
+	public String sendMailWithAttachment(EmailDetail details) {
 		MimeMessage mimeMessage
         = javaMailSender.createMimeMessage();
     MimeMessageHelper mimeMessageHelper;

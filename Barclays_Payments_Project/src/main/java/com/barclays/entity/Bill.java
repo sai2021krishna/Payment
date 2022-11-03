@@ -40,7 +40,7 @@ public class  Bill {
 	
 //	@OneToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "billSequenceId", unique = true)
-//	private Accounts_Transaction accounts_Transaction;
+//	private AccountTransaction accounts_Transaction;
 	
 	public Bill() {
 		super();

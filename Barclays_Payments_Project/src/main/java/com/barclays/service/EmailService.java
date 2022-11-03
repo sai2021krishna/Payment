@@ -1,8 +1,8 @@
 package com.barclays.service;
 
-import com.barclays.entity.EmailDetails;
+import com.barclays.entity.EmailDetail;
 
 public interface EmailService {
-	String sendSimpleMail(EmailDetails details);
-	String sendMailWithAttachment(EmailDetails details);
+	String sendSimpleMail(EmailDetail details);
+	String sendMailWithAttachment(EmailDetail details);
 }

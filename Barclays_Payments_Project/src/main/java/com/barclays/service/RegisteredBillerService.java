@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.barclays.entity.RegisteredBillers;
+import com.barclays.entity.RegisteredBiller;
 import com.barclays.exception.PaymentsException;
 
 public interface RegisteredBillerService {
 
-	ResponseEntity<List<RegisteredBillers>> getAllBillers() throws PaymentsException;
+	ResponseEntity<List<RegisteredBiller>> getAllBillers() throws PaymentsException;
 
-	ResponseEntity<List<RegisteredBillers>> getBillers(Integer sequenceId) throws PaymentsException;
+	ResponseEntity<List<RegisteredBiller>> getBillers(Integer sequenceId) throws PaymentsException;
 
-	ResponseEntity<String> registerBiller(Integer SequenceId, RegisteredBillers registerBillerEnt)
+	ResponseEntity<String> registerBiller(Integer SequenceId, RegisteredBiller registerBillerEnt)
 			throws PaymentsException;
 
 	ResponseEntity<String> deleteBiller(Integer billerSequenceId) throws PaymentsException;

@@ -15,9 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.barclays.entity.RegisteredBillers;
+import com.barclays.entity.RegisteredBiller;
 import com.barclays.exception.PaymentsException;
-import com.barclays.repository.RegisteredBillersRepository;
+import com.barclays.repository.RegisteredBillerRepository;
 import com.barclays.utility.LoggingAspect;
 
 @Service(value="paymentService")
@@ -28,18 +28,18 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 
 
 	@Autowired
-	private RegisteredBillersRepository registeredBillersRepository;
+	private RegisteredBillerRepository registeredBillerRepository;
 	
 	public static final Log LOGGER = LogFactory.getLog(RegisteredBillerServiceImpl.class); //(RegisteredBillerServiceImpl.class);
 	
 	
 	@Override
-	public ResponseEntity<List<RegisteredBillers>> getAllBillers() throws PaymentsException {
+	public ResponseEntity<List<RegisteredBiller>> getAllBillers() throws PaymentsException {
 	
-		Iterable<RegisteredBillers> billers = registeredBillersRepository.findAll();
-		List<RegisteredBillers> RegisteredBillerss = new ArrayList<>();
+		Iterable<RegisteredBiller> billers = registeredBillerRepository.findAll();
+		List<RegisteredBiller> RegisteredBillerss = new ArrayList<>();
 		billers.forEach(biller -> {
-			RegisteredBillers rb = new RegisteredBillers();
+			RegisteredBiller rb = new RegisteredBiller();
 			
 			rb.setBillerCode(biller.getBillerCode());
 			rb.setBillerSequenceId(biller.getBillerSequenceId());
@@ -55,13 +55,13 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 		return new ResponseEntity<>(RegisteredBillerss, HttpStatus.OK);
 	}
 	@Override
-	public ResponseEntity<List<RegisteredBillers>> getBillers(Integer AccountNumber) throws PaymentsException {
+	public ResponseEntity<List<RegisteredBiller>> getBillers(Integer AccountNumber) throws PaymentsException {
 	
-		Iterable<RegisteredBillers> billers = registeredBillersRepository.findByAccountNumber(AccountNumber);
-		List<RegisteredBillers> RegisteredBillerss = new ArrayList<>();
+		Iterable<RegisteredBiller> billers = registeredBillerRepository.findByAccountNumber(AccountNumber);
+		List<RegisteredBiller> RegisteredBillerss = new ArrayList<>();
 		
 		billers.forEach(biller -> {
-			RegisteredBillers rb = new RegisteredBillers();
+			RegisteredBiller rb = new RegisteredBiller();
 			
 			rb.setBillerCode(biller.getBillerCode());
 			rb.setBillerSequenceId(biller.getBillerSequenceId());
@@ -76,16 +76,16 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 	}
 	
 	@Override
-	public ResponseEntity<String> registerBiller(Integer AccountNumber,RegisteredBillers registerBillerEnt) throws PaymentsException {
+	public ResponseEntity<String> registerBiller(Integer AccountNumber,RegisteredBiller registerBillerEnt) throws PaymentsException {
 		
-		RegisteredBillers registerBiller = new RegisteredBillers();
+		RegisteredBiller registerBiller = new RegisteredBiller();
 		
 		registerBiller.setBillerCode(registerBillerEnt.getBillerCode());
 		registerBiller.setConsumerNumber(registerBillerEnt.getConsumerNumber());
 		registerBiller.setAccountNumber(AccountNumber);
 		
 		
-		RegisteredBillers biller2 = registeredBillersRepository.save(registerBiller);//PERSISTING IN DATABASE
+		RegisteredBiller biller2 = registeredBillerRepository.save(registerBiller);//PERSISTING IN DATABASE
 		
 		String successMessage = ""; //environment.getProperty("API.REGISTERED_BILLER");
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
@@ -94,9 +94,9 @@ public class RegisteredBillerServiceImpl implements RegisteredBillerService {
 	@Override
 	public ResponseEntity<String> deleteBiller(Integer billerSequenceId) throws PaymentsException {
 		
-		Optional<RegisteredBillers> register= registeredBillersRepository.findById(billerSequenceId);
+		Optional<RegisteredBiller> register= registeredBillerRepository.findById(billerSequenceId);
 		register.orElseThrow(() -> new PaymentsException("Service.BILLER_NOT_FOUND"));
-		registeredBillersRepository.deleteById(billerSequenceId);
+		registeredBillerRepository.deleteById(billerSequenceId);
 		String successMessage = environment.getProperty("API.BILLER_DELETE_SUCCESS");
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
 		

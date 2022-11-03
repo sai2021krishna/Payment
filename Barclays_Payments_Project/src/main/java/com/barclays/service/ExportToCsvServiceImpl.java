@@ -25,7 +25,7 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.barclays.entity.Accounts_Transaction;
+import com.barclays.entity.AccountTransaction;
 import com.barclays.exception.PaymentsException;
 import com.barclays.repository.AccountTransactionRepository;
 import com.opencsv.CSVWriter;
@@ -44,11 +44,11 @@ public class ExportToCsvServiceImpl implements ExportToCsvService {
         // Change the file location
         File reportFile = new File(outputFileName);
 		
-        Iterable<Accounts_Transaction> transactions = accountTransactionRepository.findAll();
-		List<Accounts_Transaction> trans = new ArrayList<>();
+        Iterable<AccountTransaction> transactions = accountTransactionRepository.findAll();
+		List<AccountTransaction> trans = new ArrayList<>();
 		
 		transactions.forEach(tr -> {
-			Accounts_Transaction at = new Accounts_Transaction();
+			AccountTransaction at = new AccountTransaction();
 			at.setAmount(tr.getAmount());
 			at.setBill_ref_num(tr.getBill_ref_num());
 			at.setDate(tr.getDate());
@@ -80,7 +80,7 @@ public class ExportToCsvServiceImpl implements ExportToCsvService {
         csvWriter.writeHeader(csvHeader);
         csvWriter2.writeHeader(csvHeader);
          
-        for (Accounts_Transaction t : trans) {
+        for (AccountTransaction t : trans) {
         	csvWriter2.write(t, nameMapping);
             csvWriter.write(t, nameMapping);
         }

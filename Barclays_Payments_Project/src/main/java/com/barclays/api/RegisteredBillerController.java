@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.barclays.dto.AccountTransactionDTO;
 import com.barclays.dto.BillsDTO;
 import com.barclays.dto.RegisteredBillersDTO;
-import com.barclays.entity.RegisteredBillers;
+import com.barclays.entity.RegisteredBiller;
 import com.barclays.exception.PaymentsException;
 import com.barclays.service.ExportToCsvService;
 import com.barclays.service.RegisteredBillerService;
@@ -47,19 +47,19 @@ public class RegisteredBillerController {
 	//getallregisteredbillersdata
 	
 	@GetMapping(value = "/registeredBillers")
-	public ResponseEntity<List<RegisteredBillers>> getAllbillers() throws PaymentsException {
+	public ResponseEntity<List<RegisteredBiller>> getAllbillers() throws PaymentsException {
 		return registeredBillerService.getAllBillers();
 		
 	}
 	
 	@GetMapping(value = "/registeredBillers/{sequenceId}")
-	public ResponseEntity<List<RegisteredBillers>> getbillers(@PathVariable Integer sequenceId) throws PaymentsException {
+	public ResponseEntity<List<RegisteredBiller>> getbillers(@PathVariable Integer sequenceId) throws PaymentsException {
 		return registeredBillerService.getBillers(sequenceId);
 		
 	}
 
 	@PostMapping(value = "/registerBiller/{sequenceId}")
-	public ResponseEntity<String> registerBiller(@PathVariable Integer sequenceId, @RequestBody RegisteredBillers
+	public ResponseEntity<String> registerBiller(@PathVariable Integer sequenceId, @RequestBody RegisteredBiller
 			registerBillers)
 			throws PaymentsException {
 		

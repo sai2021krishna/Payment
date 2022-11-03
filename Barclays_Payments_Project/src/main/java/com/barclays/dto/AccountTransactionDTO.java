@@ -63,7 +63,7 @@ public class AccountTransactionDTO {
 	}
 	@Override
 	public String toString() {
-		return "Accounts_Transaction [trans_ref_num=" + trans_ref_num + ", sequence_id=" + sequence_id + ", date="
+		return "AccountTransaction [trans_ref_num=" + trans_ref_num + ", sequence_id=" + sequence_id + ", date="
 				+ date + ", amount=" + amount + ", transaction_type=" + transaction_type + ", bill_ref_num="
 				+ bill_ref_num + ", description=" + description + "]";
 	}

@@ -53,7 +53,7 @@ public class AccountsDTO {
 	}
 	@Override
 	public String toString() {
-		return "Accounts [sequenceId=" + sequenceId + ", accountNo=" + accountNo + ", name=" + name + ", email=" + email
+		return "Account [sequenceId=" + sequenceId + ", accountNo=" + accountNo + ", name=" + name + ", email=" + email
 				+ ", currentBalance=" + currentBalance + "]";
 	}
 	
